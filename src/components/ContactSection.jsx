@@ -1,221 +1,224 @@
-import { Mail, Phone, MapPin, Linkedin ,Send} from "lucide-react";
-import { SocialButton } from "./ui/SocialButton";
+import { useState, useRef } from "react";
+import { Mail, Phone, MapPin, Linkedin, Send, Github, MessageSquare } from "lucide-react";
 import { SiLeetcode, SiCodechef, SiHackerrank } from "react-icons/si";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
-import { useState, useRef } from "react";
 import { sendContactEmail } from "@/lib/emailService";
 
 export const ContactSection = () => {
-    const {addToast}=useToast();
-    const [isSubmitting,setIsSubmitting]=useState(false);
-    const formRef = useRef(null);
+  const { addToast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const formRef = useRef(null);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setIsSubmitting(true);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
-        try {
-            const formData = new FormData(formRef.current);
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                message: formData.get('message'),
-            };
+    try {
+      const formData = new FormData(formRef.current);
+      const data = {
+        name: formData.get("name"),
+        email: formData.get("email"),
+        message: formData.get("message"),
+      };
 
-            // Try to send via backend API
-            // If backend is not available, show success message anyway
-            try {
-                await sendContactEmail(data);
-            } catch (error) {
-                console.warn('Backend not configured yet. Email service setup instructions available in emailService.js');
-            }
+      try {
+        await sendContactEmail(data);
+      } catch (error) {
+        console.warn("Backend not active. Simulation sent.");
+      }
 
-            // Show success toast
-            addToast({
-                title: "Message sent!",
-                description: "Thank you for reaching out. I'll get back to you soon.",
-                type: "success"
-            });
+      addToast({
+        title: "Link established!",
+        description: "Your message has bypassed local firewalls. I will get back to you shortly.",
+        type: "success"
+      });
 
-            // Reset form
-            formRef.current?.reset();
-        } catch (error) {
-            addToast({
-                title: "Error",
-                description: "Failed to send message. Please try again.",
-                type: "error"
-            });
-        } finally {
-            setIsSubmitting(false);
-        }
+      formRef.current?.reset();
+    } catch (error) {
+      addToast({
+        title: "Transmission failure",
+        description: "Failed to establish a link. Please retry.",
+        type: "error"
+      });
+    } finally {
+      setIsSubmitting(false);
     }
+  };
+
   return (
-    <section id="contact" className="py-24 px-4 relative bg-secondary/30">
-      <div className="container mx-auto max-w-5xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Get In <span className="text-primary">Touch</span>
-        </h2>
+    <section id="contact" className="py-24 px-4 md:px-8 relative bg-[#050816] border-t border-primary/10">
+      <div className="absolute inset-0 bg-[#050816]/20 blueprint-grid pointer-events-none opacity-40" />
 
-        <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-          Have a question or want to work together? Feel free to reach out using
-          the contact information below or through the form. I'm always open to discussing new
-          opportunities.
-        </p>
+      <div className="container max-w-6xl mx-auto z-10 space-y-16">
+        
+        {/* Section Header */}
+        <div className="text-center space-y-3">
+          <span className="font-mono text-xs text-[#00D9FF] tracking-widest uppercase">{`// COMMUNICATIONS HUD`}</span>
+          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#F8FAFC]">
+            ESTABLISH <span className="bg-gradient-to-r from-[#7C5CFC] to-[#00D9FF] bg-clip-text text-transparent">CONNECTION</span>
+          </h2>
+          <div className="h-[1px] w-24 bg-gradient-to-r from-transparent via-[#7C5CFC] to-transparent mx-auto" />
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Contact Info */}
-          <div className="space-y-8">
-            <h3 className="text-2xl font-semibold mb-6">
-              Contact Information
-            </h3>
-
+        {/* Contact Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-stretch">
+          
+          {/* Telemetry Links Column (Left) */}
+          <div className="cyber-panel tech-corners p-6 md:p-8 bg-[#050816]/90 flex flex-col justify-between text-left space-y-8">
+            
             <div className="space-y-6">
-              {/* Email */}
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <Mail className="h-6 w-6 text-primary" />
+              <div className="flex items-center gap-3 border-b border-primary/10 pb-4">
+                <div className="p-3 bg-black/45 border border-[#7C5CFC]/30 text-[#7C5CFC] rounded-lg shadow-[0_0_10px_rgba(124,92,252,0.15)]">
+                  <MessageSquare size={18} />
                 </div>
                 <div>
-                  <h4 className="font-medium">Email</h4>
-                  <a
-                    href="mailto:palakbehls@gmail.com"
-                    className="text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    palakbehls@gmail.com
-                  </a>
+                  <h3 className="font-mono font-bold text-sm text-[#F8FAFC]">COMMUNICATION HUD</h3>
+                  <p className="text-[10px] font-mono text-muted">SECURE_LINK // ROUTE_ACTIVE</p>
                 </div>
               </div>
 
-              {/* Phone */}
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <Phone className="h-6 w-6 text-primary" />
+              {/* Direct links */}
+              <div className="space-y-5 font-mono text-xs text-muted">
+                
+                {/* Email link */}
+                <div className="flex gap-4 items-start">
+                  <div className="p-2.5 bg-black/45 border border-[#7C5CFC]/20 text-[#7C5CFC] rounded-lg shadow-[0_0_8px_rgba(124,92,252,0.1)]">
+                    <Mail size={14} />
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-[9px] text-[#7C5CFC] font-extrabold">{`// EMAIL_ADDRESS`}</span>
+                    <p className="font-semibold text-sm text-[#F8FAFC]">
+                      <a href="mailto:palakbehls@gmail.com" className="hover:text-[#00D9FF] transition-colors">
+                        palakbehls@gmail.com
+                      </a>
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-medium">Phone</h4>
-                  <a
-                    href="tel:+918758443219"
-                    className="text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    +91 87584 43219
-                  </a>
-                </div>
-              </div>
 
-              {/* Location */}
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <MapPin className="h-6 w-6 text-primary" />
+                {/* Phone link */}
+                <div className="flex gap-4 items-start">
+                  <div className="p-2.5 bg-black/45 border border-[#00D9FF]/20 text-[#00D9FF] rounded-lg shadow-[0_0_8px_rgba(0,217,255,0.1)]">
+                    <Phone size={14} />
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-[9px] text-[#00D9FF] font-extrabold">{`// SECURE_VOICE`}</span>
+                    <p className="font-semibold text-sm text-[#F8FAFC]">
+                      <a href="tel:+918758443219" className="hover:text-[#7C5CFC] transition-colors">
+                        +91 87584 43219
+                      </a>
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-medium">Location</h4>
-                  <p className="text-muted-foreground">
-                    Anand, Gujarat, India
-                  </p>
+
+                {/* Location link */}
+                <div className="flex gap-4 items-start">
+                  <div className="p-2.5 bg-black/45 border border-[#7C5CFC]/20 text-[#7C5CFC] rounded-lg shadow-[0_0_8px_rgba(124,92,252,0.1)]">
+                    <MapPin size={14} />
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-[9px] text-[#7C5CFC] font-extrabold">{`// LOCATION_COORDS`}</span>
+                    <p className="font-semibold text-sm text-[#F8FAFC]">Anand, Gujarat, India</p>
+                  </div>
                 </div>
+
               </div>
             </div>
 
-            {/* Social */}
-            <div className="pt-8">
-              <h4 className="font-medium mb-4">Connect With Me</h4>
-              <div className="flex space-x-4">
-                <SocialButton
-                  href="https://www.linkedin.com/in/palakbehl26"
-                  icon={Linkedin}
-                  label="LinkedIn"
-                />
-                <SocialButton
-                   href="https://leetcode.com/u/Palak_behl"
-                   icon={SiLeetcode}
-                   label="LeetCode"
-                />
-                <SocialButton
-                   href="https://www.codechef.com/users/palakbehl26"
-                   icon={SiCodechef}
-                   label="CodeChef"
-                />
-                <SocialButton
-                   href="https://www.hackerrank.com/profile/palakbehls"
-                   icon={SiHackerrank}
-                   label="HackerRank"
-                />
+            {/* Social connection networks */}
+            <div className="pt-6 border-t border-primary/10 space-y-3">
+              <span className="font-mono text-[9px] text-[#94A3B8] tracking-widest uppercase block">{`// ACTIVE LINK_NETWORKS`}</span>
+              <div className="flex gap-3">
+                {[
+                  { icon: Github, href: "https://github.com/palakbehl", label: "GitHub", hover: "hover:text-[#F8FAFC] hover:border-[#F8FAFC]/50 hover:shadow-[0_0_10px_rgba(248,250,252,0.25)]" },
+                  { icon: Linkedin, href: "https://www.linkedin.com/in/palakbehl26", label: "LinkedIn", hover: "hover:text-[#00D9FF] hover:border-[#00D9FF]/50 hover:shadow-[0_0_10px_rgba(0,217,255,0.25)]" },
+                  { icon: SiLeetcode, href: "https://leetcode.com/u/Palak_behl", label: "LeetCode", hover: "hover:text-amber-500 hover:border-amber-500/50 hover:shadow-[0_0_10px_rgba(245,158,11,0.25)]" },
+                  { icon: SiCodechef, href: "https://www.codechef.com/users/palakbehl26", label: "CodeChef", hover: "hover:text-emerald-500 hover:border-emerald-500/50 hover:shadow-[0_0_10px_rgba(16,185,129,0.25)]" },
+                  { icon: SiHackerrank, href: "https://www.hackerrank.com/profile/palakbehls", label: "HackerRank", hover: "hover:text-green-500 hover:border-green-500/50 hover:shadow-[0_0_10px_rgba(34,197,94,0.25)]" }
+                ].map((item, idx) => {
+                  const Icon = item.icon;
+                  return (
+                    <a
+                      key={idx}
+                      href={item.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={item.label}
+                      className={`p-3 bg-black/45 border border-primary/20 rounded-md text-muted transition-all duration-300 ${item.hover}`}
+                    >
+                      <Icon size={14} />
+                    </a>
+                  );
+                })}
               </div>
             </div>
+
           </div>
 
-          {/* Contact Form */}
-          <div className="bg-card p-8 rounded-lg shadow-sm">
-            <h3 className="text-2xl font-semibold mb-6">Send a Message</h3>
+          {/* Contact Form Column (Right) */}
+          <div className="cyber-panel tech-corners p-6 md:p-8 bg-[#050816]/95 border border-[#7C5CFC]/30 text-left">
+            <h3 className="font-mono font-bold text-sm text-[#F8FAFC] border-b border-[#00D9FF]/20 pb-4 mb-6 uppercase tracking-wider">
+              {`// TRANSMIT CRYPTO MESSAGE`}
+            </h3>
 
-            <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-5 font-mono text-xs">
+              
               {/* Name */}
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium mb-2"
-                >
-                  Your Name
-                </label>
+              <div className="space-y-1.5">
+                <label htmlFor="name" className="text-muted tracking-wider uppercase block">{`> ENTER_OPERATOR_NAME`}</label>
                 <input
                   type="text"
                   id="name"
                   name="name"
                   required
-                  placeholder="Raj Sharma"
-                  className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="e.g. John Doe"
+                  className="w-full px-4 py-3 bg-black/40 border border-primary/20 rounded-md text-[#F8FAFC] placeholder-muted-foreground/30 focus:outline-none focus:border-[#00D9FF] focus:shadow-[0_0_12px_rgba(0,217,255,0.15)] transition-all font-mono"
                 />
               </div>
 
               {/* Email */}
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium mb-2"
-                >
-                  Your Email
-                </label>
+              <div className="space-y-1.5">
+                <label htmlFor="email" className="text-muted tracking-wider uppercase block">{`> ENTER_OPERATOR_EMAIL`}</label>
                 <input
                   type="email"
                   id="email"
                   name="email"
                   required
-                  placeholder="raj@example.com"
-                  className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="e.g. jdoe@cyber.net"
+                  className="w-full px-4 py-3 bg-black/40 border border-primary/20 rounded-md text-[#F8FAFC] placeholder-muted-foreground/30 focus:outline-none focus:border-[#00D9FF] focus:shadow-[0_0_12px_rgba(0,217,255,0.15)] transition-all font-mono"
                 />
               </div>
 
               {/* Message */}
-              <div>
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium mb-2"
-                >
-                  Message
-                </label>
+              <div className="space-y-1.5">
+                <label htmlFor="message" className="text-muted tracking-wider uppercase block">{`> WRITE_MESSAGE`}</label>
                 <textarea
                   id="message"
                   name="message"
                   rows="4"
                   required
-                  placeholder="Write your message here..."
-                  className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+                  placeholder="Insert transmission contents here..."
+                  className="w-full px-4 py-3 bg-black/40 border border-primary/20 rounded-md text-[#F8FAFC] placeholder-muted-foreground/30 focus:outline-none focus:border-[#00D9FF] focus:shadow-[0_0_12px_rgba(0,217,255,0.15)] transition-all font-mono resize-none"
                 />
               </div>
 
-              {/* Button */}
+              {/* Submit CTA */}
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={cn("btn w-full items-center justify-center gap-2")}
+                className={cn(
+                  "w-full flex items-center justify-center gap-2 py-3 text-xs font-mono font-bold text-[#050816] bg-gradient-to-r from-[#7C5CFC] to-[#00D9FF] rounded-lg hover:shadow-[0_0_15px_#7C5CFC] transition-all cursor-pointer disabled:opacity-50"
+                )}
               >
-                {isSubmitting ? "Sending..." : "Send Message"}
-                <Send size={16} />
+                {isSubmitting ? "TRANSMITTING SPEC DATA..." : "TRANSMIT MESSAGE"}
+                <Send size={12} className="text-[#050816]" />
               </button>
+
             </form>
           </div>
+
         </div>
+
       </div>
     </section>
   );

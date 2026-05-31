@@ -1,164 +1,142 @@
-import { Trophy, Award, Zap, Target } from "lucide-react";
 import { motion } from "framer-motion";
+import { Trophy, Award, Medal, ShieldAlert, BadgeCheck, FileCheck } from "lucide-react";
+import { SiSap } from "react-icons/si";
 
-const achievements = [
+const ACHIEVEMENTS_DATA = [
   {
-    id: 1,
-    title: "Amazon Future Engineer Scholar '23",
-    description: "Selected for prestigious Amazon Future Engineer Scholar program. It is a 10 Month Bootcamp focusing on DSA , Java , Aptitude and Problem Solving.",
-    icon: Award,
+    title: "Amazon Future Engineer Scholar",
+    type: "Scholarship & Bootcamp",
     date: "2023",
-    type: "Bootcamp",
-    highlights: ["DSA", "Aptitude", "Java Programming","Problem Solving"],
-    featured: true
+    desc: "Selected for the prestigious national scholarship and intensive 10-month engineering bootcamp spanning Java, DSA, and complex problem-solving.",
+    icon: Award,
+    color: "#7C5CFC",
+    badge: "SCHOLAR"
   },
   {
-    id: 2,
-    title: " 3x Odoo Hackathon Finalist",
-    description: "Participated in globally hiring Odoo hackathons and our team got selected in top 20 teams.",
-    icon: Trophy,
+    title: "4x Odoo Hackathon Finalist",
+    type: "Hackathon Championship",
     date: "2025",
-    type: "Hackathon",
-    highlights: ["Full-Stack Development", "Team Collaboration", "System Design", "Leadership"],
-    featured: true
+    desc: "Qualified in the top 20 teams internationally across multiple Odoo hiring hackathons, designing high-performance ERP and HR tools.",
+    icon: Trophy,
+    color: "#00D9FF",
+    badge: "4X FINALIST"
   },
-  
   {
-    id: 4,
-    title: "Graphic Designer - College Social Media",
-    description: "Official graphic designer for college's social media team, creating visual content",
-    icon: Target,
-    date: "2024-Present",
-    type: "Design",
-    highlights: ["Adobe Photoshop", "Figma", "CorelDRAW"],
-    featured: false
+    title: "4th Place CVMU Hackathon",
+    type: "Regional Hackathon",
+    date: "2026",
+    desc: "Placed 4th in the competitive university hackathon, delivering rapid prototype models in full-stack engineering.",
+    icon: Medal,
+    color: "#7C5CFC",
+    badge: "RANK #4"
+  },
+  {
+    title: "SAP Certified Back-End Developer",
+    type: "ABAP Cloud Certificate",
+    date: "2026",
+    desc: "Official SAP backend credentials in ABAP Cloud development, demonstrating high-capacity data integrations and pipelines.",
+    score: "Score: 88.8%",
+    icon: SiSap,
+    color: "#00D9FF",
+    badge: "88.8% SCORE"
+  },
+  {
+    title: "SAP Technology Consultant Track",
+    type: "Professional Certification",
+    date: "2025",
+    desc: "Completed the enterprise-grade SAP technology consulting track, studying enterprise system architectures and deployment structures.",
+    icon: BadgeCheck,
+    color: "#7C5CFC",
+    badge: "CONSULTANT"
+  },
+  {
+    title: "Accenture UK Simulation",
+    type: "Developer Simulation",
+    date: "2024",
+    desc: "Completed high-fidelity developer simulation with Accenture UK, implementing modern architecture guidelines and enterprise specs.",
+    icon: FileCheck,
+    color: "#00D9FF",
+    badge: "SIMULATION"
   }
 ];
 
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-};
-
-const item = {
-  hidden: { opacity: 0, x: -20 },
-  show: { opacity: 1, x: 0 }
-};
-
 export const AchievementsSection = () => {
   return (
-    <section id="achievements" className="py-24 px-4 relative">
-      <div className="container mx-auto max-w-4xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Achievements & <span className="text-primary">Participations</span>
-        </h2>
+    <section id="achievements" className="py-24 px-4 md:px-8 relative bg-[#050816] border-t border-primary/10">
+      <div className="absolute inset-0 bg-[#050816]/10 blueprint-grid-fine pointer-events-none opacity-30" />
 
-        <p className="text-center text-muted-foreground mb-16 max-w-2xl mx-auto">
-          Highlights of my hackathon participations, projects, and technical achievements that showcase my growth as a developer.
-        </p>
+      <div className="container max-w-6xl mx-auto z-10 space-y-16">
+        
+        {/* Section Header */}
+        <div className="text-center space-y-3">
+          <span className="font-mono text-xs text-[#00D9FF] tracking-widest uppercase">{`// UNLOCKED CREDENTIALS`}</span>
+          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#F8FAFC]">
+            MILESTONES <span className="bg-gradient-to-r from-[#7C5CFC] to-[#00D9FF] bg-clip-text text-transparent">UNLOCKED</span>
+          </h2>
+          <div className="h-[1px] w-24 bg-gradient-to-r from-transparent via-[#7C5CFC] to-transparent mx-auto" />
+        </div>
 
-        {/* Timeline-style achievements */}
-        <div className="relative pl-8 border-l-2 border-primary/20 space-y-12">
-            <motion.div 
-              className="space-y-12"
-              variants={container}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: "-100px" }}
-            >
-              {achievements.map((achievement) => {
-                const IconComponent = achievement.icon;
-                return (
-                  <motion.div
-                    key={achievement.id}
-                    variants={item}
-                    className="relative"
-                  >
-                    {/* Timeline Dot */}
-                    <div className={`absolute -left-[41px] top-6 h-5 w-5 rounded-full border-4 border-background ${achievement.featured ? "bg-primary" : "bg-muted-foreground/30"}`} />
+        {/* Credentials Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {ACHIEVEMENTS_DATA.map((item, idx) => {
+            const Icon = item.icon;
+            
+            return (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.05 }}
+                className="cyber-panel p-5 bg-[#050816]/85 border border-[#7C5CFC]/20 hover:border-[#00D9FF]/55 hover:shadow-[0_0_15px_rgba(0,217,255,0.15)] flex flex-col justify-between text-left group"
+              >
+                {/* Tech blueprint corner indicators inside card */}
+                <div className="absolute top-2 right-2 flex gap-1">
+                  <span className="h-1.5 w-1.5 rounded-full bg-primary/20 group-hover:bg-[#00D9FF] transition-colors" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-primary/20" />
+                </div>
 
+                <div className="space-y-4">
+                  {/* Icon + Title section */}
+                  <div className="flex gap-4 items-start">
                     <div 
-                        className={`bg-card p-6 rounded-xl border transition-all duration-300 ${
-                            achievement.featured 
-                            ? "border-primary/30 shadow-[0_0_20px_rgba(124,58,237,0.1)] hover:border-primary/60 hover:shadow-primary/20" 
-                            : "border-border/50 hover:border-border"
-                        }`}
+                      className="p-3 bg-black/60 border border-primary/20 rounded-xl group-hover:scale-105 transition-transform"
+                      style={{ boxShadow: `0 0 10px ${item.color}15` }}
                     >
-                      <div className="flex flex-col md:flex-row gap-6">
-                        {/* Icon */}
-                        <div className="flex-shrink-0 hidden md:block">
-                          <div className={`flex items-center justify-center h-14 w-14 rounded-full ${achievement.featured ? "bg-primary/10 text-primary" : "bg-secondary text-muted-foreground"}`}>
-                            <IconComponent className="h-7 w-7" />
-                          </div>
-                        </div>
-
-                        {/* Content */}
-                        <div className="flex-grow">
-                          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2">
-                            <div>
-                               <div className="flex items-center gap-3 mb-1">
-                                    <IconComponent className="h-5 w-5 md:hidden text-primary" />
-                                    <h3 className="text-xl font-bold">{achievement.title}</h3>
-                               </div>
-                              <p className="text-sm text-muted-foreground leading-relaxed">{achievement.description}</p>
-                            </div>
-                            <div className="flex flex-row sm:flex-col items-center sm:items-end gap-3 sm:gap-1 mt-3 sm:mt-0">
-                              <span className={`px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide rounded-full ${
-                                  achievement.featured ? "bg-primary/10 text-primary" : "bg-secondary text-secondary-foreground"
-                              }`}>
-                                {achievement.type}
-                              </span>
-                              <span className="text-xs font-mono text-muted-foreground">{achievement.date}</span>
-                            </div>
-                          </div>
-
-                          {/* Highlights */}
-                          <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-dashed border-border/50">
-                            {achievement.highlights.map((highlight, index) => (
-                              <span
-                                key={index}
-                                className="px-2 py-1 text-[11px] font-medium bg-secondary/50 text-secondary-foreground rounded hover:bg-secondary transition-colors"
-                              >
-                                # {highlight}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
+                      <Icon size={22} style={{ color: item.color }} />
                     </div>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
+                    <div className="space-y-1">
+                      <span className="font-mono text-[9px] text-[#94A3B8] uppercase tracking-wider">{item.type}</span>
+                      <h3 className="font-bold text-sm text-[#F8FAFC] leading-snug group-hover:text-secondary transition-colors">{item.title}</h3>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-[11px] font-mono text-muted leading-relaxed line-clamp-3 md:line-clamp-4">
+                    {item.desc}
+                  </p>
+                </div>
+
+                {/* Card Footer badges */}
+                <div className="mt-6 pt-3.5 border-t border-[#7C5CFC]/10 flex justify-between items-center text-[10px] font-mono">
+                  {item.score ? (
+                    <span className="text-[#00D9FF] font-black">{item.score}</span>
+                  ) : (
+                    <span className="text-muted">{item.date}</span>
+                  )}
+                  <span 
+                    className="font-bold px-2 py-0.5 rounded select-none text-[8px]"
+                    style={{ color: item.color, borderColor: `${item.color}35`, backgroundColor: `${item.color}10` }}
+                  >
+                    {item.badge}
+                  </span>
+                </div>
+
+              </motion.div>
+            );
+          })}
         </div>
 
-        {/* Quick Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-20">
-          <div className="bg-card p-6 rounded-lg shadow-sm text-center border border-border/50">
-            <div className="text-3xl font-bold text-primary mb-2">2</div>
-            <p className="text-sm text-muted-foreground">Major Hackathons</p>
-          </div>
-
-          <div className="bg-card p-6 rounded-lg shadow-sm text-center border border-border/50">
-            <div className="text-3xl font-bold text-primary mb-2">10+</div>
-            <p className="text-sm text-muted-foreground">Projects Completed</p>
-          </div>
-
-          <div className="bg-card p-6 rounded-lg shadow-sm text-center border border-border/50">
-            <div className="text-3xl font-bold text-primary mb-2">9.32</div>
-            <p className="text-sm text-muted-foreground">CGPA</p>
-          </div>
-
-          <div className="bg-card p-6 rounded-lg shadow-sm text-center border border-border/50">
-            <div className="text-3xl font-bold text-primary mb-2">30+</div>
-            <p className="text-sm text-muted-foreground">Technical Skills</p>
-          </div>
-        </div>
       </div>
     </section>
   );

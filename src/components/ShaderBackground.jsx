@@ -24,11 +24,10 @@ const ShaderBackground = () => {
     const float minorLineWidth = 0.0125;
     const float majorLineFrequency = 5.0;
     const float minorLineFrequency = 1.0;
-    const vec4 gridColor = vec4(0.5);
+    const vec4 gridColor = vec4(0.08, 0.05, 0.2, 0.8);
     const float scale = 5.0;
-    const vec4 lineColor = vec4(0.6, 0.4, 1.0, 1.5); // BRIGHTER & HIGHER ALPHA
-    const float minLineWidth = 0.02; // THICKER LINES
-    const float maxLineWidth = 0.3;  // THICKER LINES
+    const float minLineWidth = 0.015; // THICKER LINES
+    const float maxLineWidth = 0.25;  // THICKER LINES
     const float lineSpeed = 1.0 * overallSpeed;
     const float lineAmplitude = 1.2; // MORE AMPLITUDE
     const float lineFrequency = 0.2;
@@ -77,8 +76,12 @@ const ShaderBackground = () => {
       space.x += random(space.y * warpFrequency + iTime * warpSpeed + 2.0) * warpAmplitude * horizontalFade;
 
       vec4 lines = vec4(0.0);
-      vec4 bgColor1 = vec4(0.1, 0.1, 0.3, 1.0);
-      vec4 bgColor2 = vec4(0.3, 0.1, 0.5, 1.0);
+      vec4 bgColor1 = vec4(0.0196, 0.0314, 0.0862, 1.0); // Exact #050816
+      vec4 bgColor2 = vec4(0.0117, 0.0196, 0.0549, 1.0); // Deeper shade of #050816
+
+      // Blend neon violet (#7C5CFC) and neon cyan (#00D9FF)
+      vec4 lineViolet = vec4(0.486, 0.36, 0.988, 1.5);
+      vec4 lineCyan = vec4(0.0, 0.85, 1.0, 1.5);
 
       for(int l = 0; l < linesPerGroup; l++) {
         float normalizedLineIndex = float(l) / float(linesPerGroup);
@@ -95,7 +98,8 @@ const ShaderBackground = () => {
         float circle = drawCircle(circlePosition, 0.01, space) * 4.0;
 
         line = line + circle;
-        lines += line * lineColor * rand * 1.5; // BOOST BRIGHTNESS
+        vec4 colorBlend = mix(lineViolet, lineCyan, normalizedLineIndex);
+        lines += line * colorBlend * rand * 1.5; // BOOST BRIGHTNESS
       }
 
       fragColor = mix(bgColor1, bgColor2, uv.x);

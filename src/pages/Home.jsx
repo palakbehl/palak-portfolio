@@ -1,41 +1,58 @@
-import { SEO } from "@/components/SEO";
-import {Navbar} from "@/components/Navbar";
-import {HeroSection} from "../components/HeroSection";
-import {AboutSection} from "../components/AboutSection";
-import {EducationSection} from "../components/EducationSection";
-import {AchievementsSection} from "../components/AchievementsSection";
-import {SkillsSection} from "../components/SkillsSection";
-import {ProjectsSection} from "../components/ProjectsSection";
-import {ContactSection} from "../components/ContactSection";
-import {GitHubStats} from "../components/GitHubStats";
-import {Footer} from "../components/Footer";
+import { SEO } from "../components/SEO";
+import { Navbar } from "../components/Navbar";
+import { HeroSection } from "../components/HeroSection";
+import { AboutSection } from "../components/AboutSection";
+import { EducationSection } from "../components/EducationSection";
+import { SkillsSection } from "../components/SkillsSection";
+import { ProjectsSection } from "../components/ProjectsSection";
+import { AchievementsSection } from "../components/AchievementsSection";
+import { GitHubStats } from "../components/GitHubStats";
+import { ExperienceSection } from "../components/ExperienceSection";
+import { ContactSection } from "../components/ContactSection";
+import { Footer } from "../components/Footer";
+
 export function Home() {
   return (
-    <div className="min-h-screen text-foreground overflow-x-hidden relative">
+    <div className="min-h-screen bg-[#050816] text-[#F8FAFC] overflow-x-hidden relative">
       <SEO />
-      {/* Background Effects */}
-
       
-      
-      {/* Background Effects */}
+      {/* Operating System HUD Dock Navigation */}
+      <Navbar />
 
-      {/* Navbar */}
-     <Navbar className="relative z-40" />
+      {/* Main Workstation Pages Cockpit */}
+      <main className="relative z-10 lg:pl-64">
+        
+        {/* HERO SECTION - Cockpit Control Core */}
+        <HeroSection />
 
-     {/* Main Content */}
-     <main className="relative z-10 bg-gradient-to-b from-background/95 to-background">
-      <HeroSection />
-      <AboutSection />
-      <EducationSection />
-      <AchievementsSection />
-      <SkillsSection />
-      <GitHubStats />
-      <ProjectsSection />
-      <ContactSection />
-     </main>
+        {/* PROFILE SECTION - Operator specs & dossier */}
+        <AboutSection />
 
-     {/* Footer */}
-     <Footer />
+        {/* EDUCATION SECTION - Academic specifications */}
+        <EducationSection />
+
+        {/* SKILLS SECTION - Tech stack matrix */}
+        <SkillsSection />
+
+        {/* PROJECTS SECTION - Deployed systems container */}
+        <ProjectsSection />
+
+        {/* ACHIEVEMENTS SECTION - Milestones unlocked */}
+        <AchievementsSection />
+
+        {/* CODE ACTIVITY - GitHub contributions dashboard widget */}
+        <GitHubStats />
+
+        {/* EXPERIENCE SECTION - Active workstation deployments */}
+        <ExperienceSection />
+
+        {/* CONTACT SECTION - Establish connection console */}
+        <ContactSection />
+        
+      </main>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
